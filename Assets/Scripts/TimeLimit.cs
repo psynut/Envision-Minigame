@@ -18,7 +18,6 @@ public class TimeLimit : MonoBehaviour
     void Update()
     {
         float m_age = Time.timeSinceLevelLoad - awakeTime;
-        Debug.Log(m_age);
         if(m_age > 10) {
             Destroy(gameObject);
         }

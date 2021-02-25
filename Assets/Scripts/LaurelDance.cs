@@ -20,12 +20,12 @@ public class LaurelDance : MonoBehaviour
 
         if(backForth == true) {
             gameObject.transform.Rotate(0,speed,0);
-            if(gameObject.transform.localRotation.eulerAngles.y > upLimit) {
+            if(gameObject.transform.localRotation.eulerAngles.y > upLimit && gameObject.transform.localRotation.eulerAngles.y < 180) {
                 backForth = false;
             }
         } else {
             gameObject.transform.Rotate(0, -speed,0);
-            if(gameObject.transform.localRotation.eulerAngles.y < downLimit) {
+            if(gameObject.transform.localRotation.eulerAngles.y < downLimit && gameObject.transform.localRotation.eulerAngles.y > 180) {
                 backForth = true;
             }
         }
