@@ -51,4 +51,9 @@ public class MusicPlayerController : MonoBehaviour
     public void Stop() {
         audioSource.Stop();
     }
+
+    public void AdjustVolume(float input) {
+        Debug.Log("AdjustVolume to: " + input);
+        audioSource.volume = input;
+    }
 }
