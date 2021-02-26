@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MusicPlayerController : MonoBehaviour
 {
@@ -18,20 +19,24 @@ public class MusicPlayerController : MonoBehaviour
         } else {
             _instance = this;
         }
+        if(!audioSource) {
+            audioSource = GetComponent<AudioSource>();
+        }
+        if(SceneManager.GetActiveScene().name == "Game1"){
+            PlayTwoTracks(0);
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this);
-        if(!audioSource) {
-            audioSource = GetComponent<AudioSource>();
-        }
-        PlayTwoTracks(0);
+
     }
 
     public void PlaySong(int songInt){
         audioSource.clip = audioTracks[songInt];
+        audioSource.loop = false;
         audioSource.Play();
     }
 

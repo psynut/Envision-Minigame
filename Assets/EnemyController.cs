@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class EnemyController : MonoBehaviour
 {
     public Light sun;
+    public MusicPlayerController musicPC;
 
     private Transform[] children;
     private float startChildCount;
@@ -30,6 +31,7 @@ public class EnemyController : MonoBehaviour
     }
 
     private void EndScene() {
+        musicPC.PlaySong(2);
         Invoke("LoadNextScene",7);
     }
 

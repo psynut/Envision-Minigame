@@ -8,6 +8,8 @@ public class Shooter : MonoBehaviour
     public Transform projectileParent;
     public float speed = 200f;
 
+    public AudioClip[] audioClips;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +28,7 @@ public class Shooter : MonoBehaviour
         GameObject m_projectile = Instantiate(projectile, gameObject.transform.position, Quaternion.identity, projectileParent) as GameObject;
         m_projectile.transform.eulerAngles = new Vector3(0,0,90);
         m_projectile.GetComponent<Rigidbody2D>().AddForce(Vector2.right * speed);
+        GetComponent<AudioSource>().clip = audioClips[Random.Range(0,audioClips.Length)];
+        GetComponent<AudioSource>().Play();
     }
 }
