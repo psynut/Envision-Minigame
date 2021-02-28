@@ -1,30 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class VolumeController : MonoBehaviour
 {
+    const string MAIN_VOLUME_KEY = "master_volume";
     private float volume = 0;
 
-    void Update() {
-        Debug.Log(SceneManager.GetActiveScene().name);
-        if(SceneManager.GetActiveScene().name == "Game1") {
-            Slider volumeSlider = GameObject.FindGameObjectWithTag("GameController").GetComponent<Slider>();
-            Debug.Log("Slider Value set to: " + volume);
-            volumeSlider.value = volume;
-            Destroy(this.gameObject);
+    public static void SetMainVolume(float volume) {
+        if(volume >= 0f && volume <= 1f) {
+            PlayerPrefs.SetFloat(MAIN_VOLUME_KEY, volume);
+        } else {
+            Debug.LogError("Main volume out of range");
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
 
-    public void AdjustVolume(float input) {
-        volume = input;
+    public static float GetMasterVolume() {
+        return PlayerPrefs.GetFloat(MAIN_VOLUME_KEY);
     }
-    
 }
