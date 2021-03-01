@@ -36,7 +36,10 @@ public class MusicPlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         DontDestroyOnLoad(this);
-        if(sceneCommand[SceneManager.GetActiveScene().buildIndex] == Command.PlayOneTrack) {
+        if(SceneManager.GetActiveScene().buildIndex > sceneCommand.Length-1) {
+            Stop();
+            Debug.LogWarning("No " + this + ".sceneCommand chosen for this scene. Stopping Music.");
+        }else if(sceneCommand[SceneManager.GetActiveScene().buildIndex] == Command.PlayOneTrack) {
             PlayLoop(startTrack[SceneManager.GetActiveScene().buildIndex]);
         } else if(sceneCommand[SceneManager.GetActiveScene().buildIndex] == Command.PlayTwoTracks) {
             PlayTwoTracks(startTrack[SceneManager.GetActiveScene().buildIndex]);

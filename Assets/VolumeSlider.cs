@@ -28,7 +28,7 @@ public class VolumeSlider : MonoBehaviour
         AdjustVolume(VolumeController.GetMasterVolume());
     }
 
-    void AdjustVolume(float volume) {
+    public void AdjustVolume(float volume) {
         VolumeController.SetMainVolume(volume);
         foreach(AudioSource audioSource in audioSources) {
             audioSource.volume = volume;
