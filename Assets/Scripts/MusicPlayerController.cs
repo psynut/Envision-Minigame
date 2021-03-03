@@ -8,7 +8,7 @@ public class MusicPlayerController : MonoBehaviour
     private static MusicPlayerController _instance;
     public static MusicPlayerController Instance {get { return _instance; }}
 
-    public enum Command {Silent, PlayOneTrack, PlayTwoTracks}
+    public enum Command {Stop, PlayOneTrack, PlayTwoTracks, Default} //Default does nothing.
 
     [Header ("Which command to use at the start of specific scene")]
     public Command[] sceneCommand;
@@ -37,13 +37,12 @@ public class MusicPlayerController : MonoBehaviour
     void Start() {
         DontDestroyOnLoad(this);
         if(SceneManager.GetActiveScene().buildIndex > sceneCommand.Length-1) {
-            Stop();
             Debug.LogWarning("No " + this + ".sceneCommand chosen for this scene. Stopping Music.");
         }else if(sceneCommand[SceneManager.GetActiveScene().buildIndex] == Command.PlayOneTrack) {
             PlayLoop(startTrack[SceneManager.GetActiveScene().buildIndex]);
         } else if(sceneCommand[SceneManager.GetActiveScene().buildIndex] == Command.PlayTwoTracks) {
             PlayTwoTracks(startTrack[SceneManager.GetActiveScene().buildIndex]);
-        } else if(sceneCommand[SceneManager.GetActiveScene().buildIndex] == Command.Silent) {
+        } else if(sceneCommand[SceneManager.GetActiveScene().buildIndex] == Command.Stop) {
             Stop();
         }
     }
