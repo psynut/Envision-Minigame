@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MusicPlayerController : MonoBehaviour
@@ -35,19 +33,23 @@ public class MusicPlayerController : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        DontDestroyOnLoad(this);
-        if(SceneManager.GetActiveScene().buildIndex > sceneCommand.Length-1) {
+        DontDestroyOnLoad(gameObject);
+        int buildIndex = SceneManager.GetActiveScene().buildIndex;
+        calledTrack = startTrack[buildIndex];
+        if(buildIndex > sceneCommand.Length-1) {
             Debug.LogWarning("No " + this + ".sceneCommand chosen for this scene. Stopping Music.");
-        }else if(sceneCommand[SceneManager.GetActiveScene().buildIndex] == Command.PlayOneTrack) {
-            PlayLoop(startTrack[SceneManager.GetActiveScene().buildIndex]);
-        } else if(sceneCommand[SceneManager.GetActiveScene().buildIndex] == Command.PlayTwoTracks) {
-            PlayTwoTracks(startTrack[SceneManager.GetActiveScene().buildIndex]);
-        } else if(sceneCommand[SceneManager.GetActiveScene().buildIndex] == Command.Stop) {
             Stop();
-        }
+        }else if(sceneCommand[buildIndex] == Command.PlayOneTrack) {
+            PlayLoop(calledTrack);
+        } else if(sceneCommand[buildIndex] == Command.PlayTwoTracks) {
+            PlayTwoTracks(calledTrack);
+        } else if(sceneCommand[buildIndex] == Command.Stop) {
+            Stop();
+        } 
     }
 
     public void PlaySong(int songInt){
+        CancelInvoke();
         audioSource.clip = audioTracks[songInt];
         audioSource.loop = false;
         audioSource.Play();
